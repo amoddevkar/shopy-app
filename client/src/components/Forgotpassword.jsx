@@ -20,7 +20,7 @@ export default function Forgotpassword({ type }) {
     if (type === "resetPassword") {
       try {
         const response = await axios.post(
-          `api/v1/password/reset/${params.token}`,
+          `/api/v1/password/reset/${params.token}`,
           {
             password: newPassword,
             confirmPassword: confirmPassword,
@@ -33,20 +33,20 @@ export default function Forgotpassword({ type }) {
       }
     } else {
       try {
-        const response = await axios.post(
-          "api/v1/forgotPassword",
+        const response = await axios.post("api/v1/forgotPassword", {
+          email,
+        });
+        enqueueSnackbar(
+          "Password reset link sent successfully, kindly check your email",
           {
-            email,
+            variant: "success",
+            autoHideDuration: 3000,
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "right",
+            },
           }
         );
-        enqueueSnackbar("Password reset link sent successfully, kindly check your email", {
-          variant: "success",
-          autoHideDuration: 3000,
-          anchorOrigin: {
-            vertical: "top",
-            horizontal: "right",
-          },
-        });
       } catch (error) {
         enqueueSnackbar("Incorrect credentials", {
           variant: "error",
@@ -59,14 +59,14 @@ export default function Forgotpassword({ type }) {
       }
     }
   };
- 
+
   const checkPassword = (e) => {
     if (e.target.value === newPassword) {
-      setErrorvalue(false)
-      setHelperText("Password is matching")
+      setErrorvalue(false);
+      setHelperText("Password is matching");
     } else {
-     setErrorvalue(true)
-     setHelperText("Password is not matching")
+      setErrorvalue(true);
+      setHelperText("Password is not matching");
     }
     setConfirmPassword(e.target.value);
   };
@@ -83,7 +83,7 @@ export default function Forgotpassword({ type }) {
         variant={"h5"}
         sx={{ fontFamily: "inherit", fontWeight: "bold" }}
       >
-        {type === "forgotPassword" ? "Enter your Email" : "Reset Passeord Form"}
+        {type === "forgotPassword" ? "Enter your Email" : "Reset Password Form"}
       </Typography>
       {type === "forgotPassword" && (
         <TextField

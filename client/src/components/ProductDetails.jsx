@@ -15,7 +15,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Navbar from "./Navbar";
 import { useSnackbar } from "notistack";
-import Footer from './Footer';
+import Footer from "./Footer";
 const ProductDetails = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -24,38 +24,38 @@ const ProductDetails = () => {
   const [userRating, setUserRating] = useState(0);
   const [reviews, setReviews] = useState(null);
   const cartContext = useContext(CartContext);
-  async function getProduct() {
-    try {
-      const res = await axios.get(
-        `api/v1/product/${params.id}`
-      );
-      setProduct(res.data.product);
-      setReviews(res.data.product.reviews);
-    } catch (error) {
-      enqueueSnackbar("Something went wrong", {
-        variant: "error",
-        autoHideDuration: 1000,
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "right",
-        },
-      });
-      navigate("/products");
-    }
-  }
+
   useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(`/api/v1/product/${params.id}`);
+        setProduct(res.data.product);
+        setReviews(res.data.product.reviews);
+      } catch (error) {
+        console.log(error);
+        enqueueSnackbar("Something went wrong", {
+          variant: "error",
+          autoHideDuration: 1000,
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "right",
+          },
+        });
+        navigate("/products");
+      }
+    };
     getProduct();
   }, []);
 
   const handleSubmit = async (e) => {
-   
+    e.preventDefault();
     try {
-      await axios.put("api/v1/review", {
+      await axios.put("/api/v1/review", {
         productId: product._id,
         comment: e.target[6].value,
         rating: userRating,
       });
-      
+
       enqueueSnackbar("review added successfully", {
         variant: "success",
         autoHideDuration: 2000,
@@ -64,6 +64,25 @@ const ProductDetails = () => {
           horizontal: "right",
         },
       });
+
+      const getProduct = async () => {
+        try {
+          const res = await axios.get(`/api/v1/product/${params.id}`);
+          setReviews(res.data.product.reviews);
+        } catch (error) {
+          console.log(error);
+          enqueueSnackbar("Something went wrong", {
+            variant: "error",
+            autoHideDuration: 1000,
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "right",
+            },
+          });
+          navigate("/products");
+        }
+      };
+      getProduct();
     } catch (error) {
       enqueueSnackbar("Something went wrong", {
         variant: "error",

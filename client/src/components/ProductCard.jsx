@@ -5,7 +5,8 @@ import {
   CardMedia,
   Button,
   Typography,
-  Rating,Box
+  Rating,
+  Box,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -17,7 +18,7 @@ const ProductCard = ({ imgUrl, name, category, ratings, id, product }) => {
   const cartContext = useContext(CartContext);
 
   return (
-    <Card sx={{ maxWidth: 220, margin: "20px", boxShadow:"0"}}>
+    <Card sx={{ maxWidth: 220, margin: "20px", boxShadow: "0" }}>
       <CardMedia
         component="img"
         height="200"
@@ -66,21 +67,24 @@ const ProductCard = ({ imgUrl, name, category, ratings, id, product }) => {
           readOnly
         />
       </CardContent>
-      <Box sx={{ display: "flex", flexDirection: "column" ,bgcolor:"inherit"}}>
-      <Link
-            to={`/product/${id}`}
-            style={{ textDecoration: "none", color: "white" }}
-          > <Button
-          variant="contained"
-          size="small"
-          startIcon={<InfoIcon />}
-          fullWidth
-          sx={{mb:1,borderRadius:"0",boxShadow:"0"}}
+      <Box
+        sx={{ display: "flex", flexDirection: "column", bgcolor: "inherit" }}
+      >
+        <Link
+          to={`/product/${id}`}
+          style={{ textDecoration: "none", color: "white" }}
         >
-          
+          {" "}
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<InfoIcon />}
+            fullWidth
+            sx={{ mb: 1, borderRadius: "0", boxShadow: "0" }}
+          >
             Details
-          
-        </Button></Link>
+          </Button>
+        </Link>
         <Button
           fullWidth
           variant="contained"
@@ -89,7 +93,7 @@ const ProductCard = ({ imgUrl, name, category, ratings, id, product }) => {
             cartContext.addToCart(product);
           }}
           startIcon={<ShoppingCartIcon />}
-         sx={{borderRadius:"0",boxShadow:"0"}}
+          sx={{ borderRadius: "0", boxShadow: "0" }}
         >
           Add to cart
         </Button>

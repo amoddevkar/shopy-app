@@ -54,7 +54,7 @@ const Home = () => {
             }}
           >
             <Link
-              to={"/products/longsleeves"}
+              to={"/longsleeves"}
               style={{ textDecoration: "none", color: "white" }}
             >
               <Button
@@ -84,7 +84,7 @@ const Home = () => {
             }}
           >
             <Link
-              to={"/products/shortsleeves"}
+              to={"/shortsleeves"}
               style={{ textDecoration: "none", color: "white" }}
             >
               <Button
@@ -115,7 +115,7 @@ const Home = () => {
             }}
           >
             <Link
-              to={"/products/hoodies"}
+              to={"/hoodies"}
               style={{ textDecoration: "none", color: "white" }}
             >
               <Button
