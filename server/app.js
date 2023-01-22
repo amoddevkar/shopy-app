@@ -15,7 +15,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //regular middleware
 const corsOptions = {
-  origin: 'https://shopy-dkj4.onrender.com',
+  origin: '*',
   credentials: true,
   optionsSuccessStatus: 200,
   exposedHeaders: ["set-cookie"],

@@ -3,10 +3,10 @@ import ProductCard from "./ProductCard";
 import { Box, Pagination } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Sorting from "./Sorting";
 import { useSnackbar } from "notistack";
-import Footer from './Footer';
+import Footer from "./Footer";
 axios.defaults.withCredentials = true;
 const Products = () => {
   const navigate = useNavigate();
@@ -22,8 +22,6 @@ const Products = () => {
   const [gteRatings, setGteRatings] = useState(null);
   const [ltePrice, setLtePrice] = useState(null);
   const [gtePrice, setGtePrice] = useState(null);
-
-  
 
   useEffect(() => {
     let url = `api/v1/products?page=${page}`;
@@ -44,7 +42,6 @@ const Products = () => {
         const response = await axios.get(url);
         await setData(response.data);
       } catch (error) {
-        
         enqueueSnackbar("Something went wrong", {
           variant: "error",
           autoHideDuration: 1000,
@@ -53,13 +50,14 @@ const Products = () => {
             horizontal: "right",
           },
         });
+        console.log(error);
         navigate("/login");
       }
     };
     getData(url);
   }, [page, gteRatings, gtePrice, ltePrice, category]);
 
-  const handleChange = (e,value) => {
+  const handleChange = (e, value) => {
     setPage(value);
   };
 
