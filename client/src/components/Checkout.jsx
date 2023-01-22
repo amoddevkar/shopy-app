@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
   const { enqueueSnackbar } = useSnackbar();
@@ -42,7 +42,7 @@ export default function Checkout() {
 
   const handleClick = async () => {
     try {
-      const res = await axios.get("api/v1/razorpaykey");
+      const res = await axios.get("/api/v1/razorpaykey");
       var options = {
         key: res.data.razorpaykey,
         amount: "",
@@ -76,10 +76,7 @@ export default function Checkout() {
             totalAmount: amount,
           };
           try {
-            await axios.post(
-              "api/v1/order/create",
-              values
-            );
+            await axios.post("/api/v1/order/create", values);
             enqueueSnackbar("Order placed successfully!!", {
               variant: "success",
               autoHideDuration: 2000,
@@ -102,18 +99,14 @@ export default function Checkout() {
         },
       };
       try {
-        const res = await axios.post(
-          "api/v1/capturerazorpay",
-          {
-            amount: amount * 100,
-          }
-        );
+        const res = await axios.post("/api/v1/capturerazorpay", {
+          amount: amount * 100,
+        });
         options.order_id = res.data.id;
         options.amount = res.data.amount;
-        
+
         var rzp1 = new window.Razorpay(options);
         await rzp1.open();
-        
       } catch (error) {
         enqueueSnackbar("Something went wrong", {
           variant: "error",

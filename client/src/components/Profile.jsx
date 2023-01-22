@@ -17,7 +17,7 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   async function getUser() {
     try {
-      const res = await axios.get("api/v1/userdashboard");
+      const res = await axios.get("/api/v1/userdashboard");
       setUser(res.data.user);
     } catch (error) {
       enqueueSnackbar("User not found", {
@@ -43,7 +43,7 @@ export default function Profile() {
       formData.append("photo", e.target.photo.files[0]);
       const response = await axios({
         method: "post",
-        url: "api/v1/userdashboard/update",
+        url: "/api/v1/userdashboard/update",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -57,7 +57,6 @@ export default function Profile() {
           vertical: "top",
           horizontal: "right",
         },
-        
       });
     } catch (error) {
       enqueueSnackbar("Incorrect credentials", {
@@ -67,7 +66,6 @@ export default function Profile() {
           vertical: "top",
           horizontal: "right",
         },
-        
       });
     }
   };
@@ -82,7 +80,6 @@ export default function Profile() {
                 component="img"
                 height="200"
                 image={user.photo.secure_url}
-               
               />
               <CardContent>
                 <Box component="form" onSubmit={handleSubmit}>
@@ -129,7 +126,6 @@ export default function Profile() {
               </CardContent>
             </CardActionArea>
           </Card>
-          
         </Box>
       </>
     )

@@ -10,7 +10,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import axios from "axios";
@@ -20,11 +20,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  
-
   const handleLogout = async () => {
     try {
-      await axios.get("api/v1/logout");
+      await axios.get("/api/v1/logout");
 
       await enqueueSnackbar("logout", {
         variant: "success",
@@ -35,7 +33,7 @@ const Navbar = () => {
         },
       });
       await localStorage.clear();
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
       await enqueueSnackbar("something went wrong", {
         variant: "error",
@@ -66,7 +64,6 @@ const Navbar = () => {
       }}
     >
       <TextField
-      
         color="success"
         sx={{ width: "10%", bgcolor: "palegreen" }}
         InputProps={{
@@ -77,7 +74,6 @@ const Navbar = () => {
           ),
         }}
         variant="standard"
-        
       />
 
       <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
@@ -105,7 +101,7 @@ const Navbar = () => {
               <Menu {...bindMenu(popupState)}>
                 <Link
                   to="/profile"
-                  style={{ textDecoration: "none",color:"black"  }}
+                  style={{ textDecoration: "none", color: "black" }}
                 >
                   <MenuItem onClick={popupState.close}>Profile</MenuItem>
                 </Link>

@@ -24,7 +24,7 @@ const Products = () => {
   const [gtePrice, setGtePrice] = useState(null);
 
   useEffect(() => {
-    let url = `api/v1/products?page=${page}`;
+    let url = `/api/v1/products?page=${page}`;
     const getData = async (url) => {
       if (category) {
         url += `&category=${category}`;

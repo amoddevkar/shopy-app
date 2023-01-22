@@ -6,17 +6,15 @@ import { Paper } from "@mui/material";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import Footer from './Footer';
+import Footer from "./Footer";
 export default function Profile() {
- 
   const [orders, setOrders] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   useEffect(() => {
     async function getOrders() {
-     
       try {
-        const res = await axios.get("api/v1/myorder");
+        const res = await axios.get("/api/v1/myorder");
         setOrders(res.data.order);
       } catch (error) {
         enqueueSnackbar("You don't have orders yet !!", {
@@ -27,7 +25,7 @@ export default function Profile() {
             horizontal: "right",
           },
         });
-        navigate("/home")
+        navigate("/home");
       }
     }
     getOrders();
@@ -42,13 +40,13 @@ export default function Profile() {
             bgcolor: "#ffc14d",
             width: "800px",
             mt: 12,
-            mb:2,
+            mb: 2,
             textAlign: "center",
             padding: "5px",
             ml: "293px",
           }}
         >
-         Your orders
+          Your orders
         </Box>
         <Box
           justifyContent={"center"}
@@ -188,7 +186,10 @@ export default function Profile() {
                   <Typography variant="body2" sx={{ fontFamily: "inherit" }}>
                     Shipping amount: Rs. {order.shippingAmount}
                   </Typography>
-                  <Typography variant="body2" sx={{ fontFamily: "inherit",bgcolor:"#ffe5b4" }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontFamily: "inherit", bgcolor: "#ffe5b4" }}
+                  >
                     Total amount: Rs. {order.totalAmount}
                   </Typography>
                   <Typography variant="body2" sx={{ fontFamily: "inherit" }}>

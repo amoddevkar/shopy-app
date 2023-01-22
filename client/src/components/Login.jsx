@@ -23,7 +23,7 @@ export default function Login({ type }) {
         formData.append("photo", photo);
         const response = await axios({
           method: "post",
-          url: "api/v1/signup",
+          url: "/api/v1/signup",
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data",
@@ -43,13 +43,12 @@ export default function Login({ type }) {
     } else {
       try {
         const response = await axios.post(
-          "api/v1/login",
+          "/api/v1/login",
           {
             email,
             password,
           },
-          { withCredentials: true },
-         
+          { withCredentials: true }
         );
         navigate("/home");
       } catch (error) {

@@ -33,7 +33,7 @@ export default function Forgotpassword({ type }) {
       }
     } else {
       try {
-        const response = await axios.post("api/v1/forgotPassword", {
+        const response = await axios.post("/api/v1/forgotPassword", {
           email,
         });
         enqueueSnackbar(
