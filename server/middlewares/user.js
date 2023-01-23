@@ -4,16 +4,16 @@ const CustomError = require("../utils/customError");
 const jwt = require("jsonwebtoken");
 
 exports.isLoggedIn = BigPromise(async (req, res, next) => {
-  // const token = req.cookies.token || req.header("Authorization").replace("Bearer ", "");
+  const token = req.cookies.token || req.header("Authorization").replace("Bearer ", "");
 
   // check token first in cookies
-  let token = req.cookies.token;
+  //let token = req.cookies.token;
 
   // if token not found in cookies, check if header contains Auth field
   if (!token && req.header("Authorization")) {
     token = req.header("Authorization").replace("Bearer ", "");
   }
-
+  console.log(token);
   if (!token) {
     return next(new CustomError("Login first to access this page", 401));
   }

@@ -39,6 +39,8 @@ const Products = () => {
         url += `&price[gte]=${gtePrice}`;
       }
       try {
+        const token = localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         const response = await axios.get(url);
         await setData(response.data);
       } catch (error) {

@@ -29,6 +29,7 @@ export default function Login({ type }) {
             "Content-Type": "multipart/form-data",
           },
         });
+        await localStorage.setItem("token", response.data.token);
         navigate("/home");
       } catch (error) {
         enqueueSnackbar("Incorrect credentials", {
@@ -50,7 +51,7 @@ export default function Login({ type }) {
           },
           { withCredentials: true }
         );
-        await console.log(response);
+        await localStorage.setItem("token", response.data.token);
         navigate("/home");
       } catch (error) {
         enqueueSnackbar("Incorrect credentials", {
