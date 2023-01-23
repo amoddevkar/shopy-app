@@ -50,6 +50,7 @@ export default function Login({ type }) {
           },
           { withCredentials: true }
         );
+        await console.log(response);
         navigate("/home");
       } catch (error) {
         enqueueSnackbar("Incorrect credentials", {
