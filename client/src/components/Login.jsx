@@ -23,7 +23,7 @@ export default function Login({ type }) {
         formData.append("photo", photo);
         const response = await axios({
           method: "post",
-          url: "https://shopyapp.onrender.com/api/v1/signup",
+          url: "http://localhost:4000/api/v1/signup",
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data",
@@ -43,7 +43,7 @@ export default function Login({ type }) {
     } else {
       try {
         const response = await axios.post(
-          "https://shopyapp.onrender.com/api/v1/login",
+          "http://localhost:4000/api/v1/login",
           {
             email,
             password,

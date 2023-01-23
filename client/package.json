@@ -1,5 +1,4 @@
 {
-  "proxy":"https://shopyapp.onrender.com/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -51,3 +50,5 @@
   "description": ""
   
 }
+
+

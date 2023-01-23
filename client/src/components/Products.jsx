@@ -24,7 +24,7 @@ const Products = () => {
   const [gtePrice, setGtePrice] = useState(null);
 
   useEffect(() => {
-    let url = `https://shopyapp.onrender.com/api/v1/products?page=${page}`;
+    let url = `http://localhost:4000/api/v1/products?page=${page}`;
     const getData = async (url) => {
       if (category) {
         url += `&category=${category}`;
