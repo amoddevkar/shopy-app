@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("/api/v1/logout");
+      await axios.get("https://shopyapp.onrender.com/api/v1/logout");
 
       await enqueueSnackbar("logout", {
         variant: "success",

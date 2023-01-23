@@ -11,10 +11,19 @@ export default function Profile() {
   const [orders, setOrders] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     async function getOrders() {
       try {
-        const res = await axios.get("/api/v1/myorder");
+        const res = await axios.get(
+          "https://shopyapp.onrender.com/api/v1/myorder",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setOrders(res.data.order);
       } catch (error) {
         enqueueSnackbar("You don't have orders yet !!", {

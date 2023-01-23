@@ -15,9 +15,17 @@ export default function Profile() {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [user, setUser] = useState(null);
+  const token = localStorage.getItem("token");
   async function getUser() {
     try {
-      const res = await axios.get("/api/v1/userdashboard");
+      const res = await axios.get(
+        "https://shopyapp.onrender.com/api/v1/userdashboard",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setUser(res.data.user);
     } catch (error) {
       enqueueSnackbar("User not found", {
@@ -43,10 +51,11 @@ export default function Profile() {
       formData.append("photo", e.target.photo.files[0]);
       const response = await axios({
         method: "post",
-        url: "/api/v1/userdashboard/update",
+        url: "https://shopyapp.onrender.com/api/v1/userdashboard/update",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       await setUser(response.data.user);

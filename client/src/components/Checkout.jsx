@@ -14,6 +14,7 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+  const token = localStorage.getItem("token");
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { cartItems } = useContext(CartContext);
@@ -42,7 +43,14 @@ export default function Checkout() {
 
   const handleClick = async () => {
     try {
-      const res = await axios.get("/api/v1/razorpaykey");
+      const res = await axios.get(
+        "https://shopyapp.onrender.com/api/v1/razorpaykey",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       var options = {
         key: res.data.razorpaykey,
         amount: "",
@@ -76,7 +84,15 @@ export default function Checkout() {
             totalAmount: amount,
           };
           try {
-            await axios.post("/api/v1/order/create", values);
+            await axios.post(
+              "https://shopyapp.onrender.com/api/v1/order/create",
+              values,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
             enqueueSnackbar("Order placed successfully!!", {
               variant: "success",
               autoHideDuration: 2000,
@@ -99,9 +115,17 @@ export default function Checkout() {
         },
       };
       try {
-        const res = await axios.post("/api/v1/capturerazorpay", {
-          amount: amount * 100,
-        });
+        const res = await axios.post(
+          "https://shopyapp.onrender.com/api/v1/capturerazorpay",
+          {
+            amount: amount * 100,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         options.order_id = res.data.id;
         options.amount = res.data.amount;
 

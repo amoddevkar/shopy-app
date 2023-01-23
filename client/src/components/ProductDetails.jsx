@@ -24,11 +24,18 @@ const ProductDetails = () => {
   const [userRating, setUserRating] = useState(0);
   const [reviews, setReviews] = useState(null);
   const cartContext = useContext(CartContext);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios.get(`/api/v1/product/${params.id}`);
+        const res = await axios.get(
+          `https://shopyapp.onrender.com/api/v1/product/${params.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setProduct(res.data.product);
         setReviews(res.data.product.reviews);
       } catch (error) {
@@ -50,11 +57,19 @@ const ProductDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("/api/v1/review", {
-        productId: product._id,
-        comment: e.target[6].value,
-        rating: userRating,
-      });
+      await axios.put(
+        "https://shopyapp.onrender.com/api/v1/review",
+        {
+          productId: product._id,
+          comment: e.target[6].value,
+          rating: userRating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       enqueueSnackbar("review added successfully", {
         variant: "success",
@@ -67,7 +82,14 @@ const ProductDetails = () => {
 
       const getProduct = async () => {
         try {
-          const res = await axios.get(`/api/v1/product/${params.id}`);
+          const res = await axios.get(
+            `https://shopyapp.onrender.com/api/v1/product/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           setReviews(res.data.product.reviews);
         } catch (error) {
           console.log(error);

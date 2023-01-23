@@ -14,16 +14,22 @@ export default function Forgotpassword({ type }) {
   const [helperText, setHelperText] = useState("Password is matching");
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === "resetPassword") {
       try {
-        const response = await axios.post(
-          `/api/v1/password/reset/${params.token}`,
+        await axios.post(
+          `https://shopyapp.onrender.com/api/v1/password/reset/${params.token}`,
           {
             password: newPassword,
             confirmPassword: confirmPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
@@ -33,9 +39,17 @@ export default function Forgotpassword({ type }) {
       }
     } else {
       try {
-        const response = await axios.post("/api/v1/forgotPassword", {
-          email,
-        });
+        const response = await axios.post(
+          "https://shopyapp.onrender.com/api/v1/forgotPassword",
+          {
+            email,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         enqueueSnackbar(
           "Password reset link sent successfully, kindly check your email",
           {
