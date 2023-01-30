@@ -42,17 +42,19 @@ exports.getAllProduct = BigPromise(async (req, res, next) => {
   const filteredProductNumber = products.length;
 
   //products.limit().skip()
+  if (!req.query.search) {
+    productsObj.pager(resultPerPage);
+    products = await productsObj.base.clone();
+  }
 
-  productsObj.pager(resultPerPage);
-  products = await productsObj.base.clone();
-  const pageCount=Math.ceil(filteredProductNumber/resultPerPage) 
+  const pageCount = Math.ceil(filteredProductNumber / resultPerPage)
   res.status(200).json({
     success: true,
     products,
     filteredProductNumber,
     totalcountProduct,
     pageCount
-    
+
   });
 });
 

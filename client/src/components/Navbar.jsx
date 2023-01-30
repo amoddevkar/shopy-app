@@ -1,21 +1,12 @@
-import {
-  AppBar,
-  TextField,
-  InputAdornment,
-  Typography,
-  Box,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { AppBar, Typography, Box, Menu, MenuItem } from "@mui/material";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import axios from "axios";
-import { useState } from "react";
-
+import Searching from "./searching";
 const Navbar = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -63,33 +54,6 @@ const Navbar = () => {
         alignItems: "center",
       }}
     >
-      <TextField
-        color="success"
-        sx={{ width: "10%", bgcolor: "palegreen" }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon></SearchIcon>
-            </InputAdornment>
-          ),
-        }}
-        variant="standard"
-      />
-
-      <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
-        <Typography
-          variant="h5"
-          sx={{
-            borderRadius: "10%",
-            fontFamily: "inherit",
-            border: "solid 1px white",
-            p: 1,
-          }}
-        >
-          ShopyApp
-        </Typography>
-      </Link>
-
       <Box>
         <PopupState variant="popover" popupId="demo-popup-menu">
           {(popupState) => (
@@ -120,6 +84,21 @@ const Navbar = () => {
           <ShoppingCartIcon sx={{ padding: "0 12px" }} />
         </Link>
       </Box>
+
+      <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            borderRadius: "10%",
+            fontFamily: "inherit",
+            border: "solid 1px white",
+            p: 1,
+          }}
+        >
+          ShopyApp
+        </Typography>
+      </Link>
+      <Searching />
     </AppBar>
   );
 };

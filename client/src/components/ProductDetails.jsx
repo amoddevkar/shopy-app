@@ -11,7 +11,7 @@ import { useEffect, useState, useContext } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import axios from "axios";
 import { CartContext } from "../cart/CartContext";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Navbar from "./Navbar";
 import { useSnackbar } from "notistack";
@@ -24,6 +24,7 @@ const ProductDetails = () => {
   const [userRating, setUserRating] = useState(0);
   const [reviews, setReviews] = useState(null);
   const cartContext = useContext(CartContext);
+  const location = useLocation();
   const token = localStorage.getItem("token");
   useEffect(() => {
     const getProduct = async () => {
@@ -39,7 +40,6 @@ const ProductDetails = () => {
         setProduct(res.data.product);
         setReviews(res.data.product.reviews);
       } catch (error) {
-        console.log(error);
         enqueueSnackbar("Something went wrong", {
           variant: "error",
           autoHideDuration: 1000,
@@ -52,7 +52,7 @@ const ProductDetails = () => {
       }
     };
     getProduct();
-  }, []);
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
