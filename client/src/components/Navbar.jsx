@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import axios from "axios";
-import Searching from "./searching";
+import Searching from "./Searching";
 const Navbar = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
